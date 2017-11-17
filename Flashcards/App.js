@@ -9,16 +9,25 @@ import { reducer } from './src/reducers/DeckReducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger'
+import logger from 'redux-logger';
+import * as DeckApi from './src/utils/DeckApi';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  reducer,
-  composeEnhancers(
-    applyMiddleware(logger, thunk)
-  )
-);
+const configureStore = () => {
+  const store = createStore(
+    reducer,
+    composeEnhancers(
+      applyMiddleware(logger, thunk)
+    )
+  );
+
+  store.subscribe(() => {
+    DeckApi.saveDeck(store.getState().decks)
+  });
+
+  return store;
+};
 
 const CustomStatusBar = ({ backgroundColor, ...props }) => {
   return (
@@ -47,7 +56,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={configureStore()}>
         <View style={styles.container}>
           <CustomStatusBar backgroundColor={blue_4e4cb8} barStyle="light-content" />
           <MainNavigator />
