@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, StatusBar, ToolbarAndroid, Platform, Text } from 'react-native';
 import { HomeTabNavigator } from './src/components/HomeTabNavigator';
 import DeckScreen from './src/components/screens/DeckScreen';
+import AddCardScreen from './src/components/screens/AddCardScreen';
+import QuizScreen from './src/components/screens/QuizScreen';
 import { StackNavigator } from 'react-navigation'
 import { Constants } from 'expo';
 import { purple_292477, white_fff, blue_4e4cb8 } from './src/utils/colors';
@@ -50,6 +52,12 @@ const MainNavigator = StackNavigator({
   },
   DeckScreen: {
     screen: DeckScreen,
+  },
+  AddCardScreen: {
+    screen: AddCardScreen
+  },
+  QuizScreen: {
+    screen: QuizScreen
   }
 });
 

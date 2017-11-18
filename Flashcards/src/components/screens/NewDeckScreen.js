@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as DeckActions from '../../actions/DeckActions';
+import SubmitButton from '../SubmitButton';
 
 class NewDeckScreen extends Component {
 
@@ -19,7 +20,7 @@ class NewDeckScreen extends Component {
     _handleChange = (text) => {
         this.setState({ title: text },
             () => { this.validateFields() });
-    }
+    };
 
     validateFields = () => {
         const { title } = this.state;
@@ -54,11 +55,9 @@ class NewDeckScreen extends Component {
                     placeholder='Deck Title'
                     value={this.state.title}
                 />
-                <Button
-                    disabled={this.state.disableSubButton}
-                    onPress={this._submit}
-                    title="SUBMIT"
-                    color="#841584"
+                <SubmitButton
+                    _disabled={this.state.disableSubButton}
+                    _onPress={this._submit}
                 />
             </View>
         )
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
     },
     header: {
         fontSize: 40,

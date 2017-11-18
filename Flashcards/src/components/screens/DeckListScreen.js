@@ -33,12 +33,16 @@ class DeckListScreen extends Component {
             return [];
         }
         return Object.keys(decks).map(key => {
+            if (decks[key].title === undefined
+                || decks[key].questions === undefined) {
+                return undefined;
+            }
             return {
                 id: key,
                 name: decks[key].title,
                 numCards: decks[key].questions.length
             }
-        })
+        }).filter( item => item !== undefined)
     };
 
     render() {

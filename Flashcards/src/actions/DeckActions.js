@@ -11,13 +11,6 @@ function loadAllDecks(decks) {
     }
 };
 
-function getDeck(deckId) {
-    return {
-        type: GET_DECK,
-        deckId
-    }
-};
-
 function saveDeckTitle(title) {
     return {
         type: SAVE_DECK,
@@ -36,11 +29,6 @@ function insertCardToDeck(title, card) {
 export const getAllDecks = () => dispatch => (
     DeckApi.fetchAllDecks()
         .then(decks => dispatch(loadAllDecks(JSON.parse(decks))))
-);
-
-export const getDeck = (deckId) => dispatch => (
-    DeckApi.fetchAllDecks()
-        .then(decks => dispatch(getDeck(deckId)))
 );
 
 export const addCardToDeck = (title, card) => dispatch => {

@@ -6,20 +6,13 @@ import {
 } from '../actions/DeckActions';
 
 export function reducer(state = {}, action) {
-    const { deckId, title, card, decks } = action
+    const { title, card, decks } = action
 
     switch (action.type) {
         case LOAD_ALL_DECKS:
             return {
                 ...state,
                 decks
-            };
-
-        case GET_DECK:
-            const deck = Object.keys(state.decks).filter((key) => state.decks[key].id === deckId)[0];
-            return {
-                ...state,
-                decks: state.decks[deck]
             };
 
         case SAVE_DECK:
