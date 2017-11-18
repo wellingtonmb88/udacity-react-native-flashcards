@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { blue_4e4cb8 } from '../../utils/colors';
-import CustomButton from '../CustomButton';
 import SubmitButton from '../SubmitButton';
 import { NavigationActions } from 'react-navigation';
 import * as DeckActions from '../../actions/DeckActions';

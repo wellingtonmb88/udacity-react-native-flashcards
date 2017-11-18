@@ -5,6 +5,7 @@ import { purple_292477, blue_4e4cb8 } from '../../utils/colors';
 import { connect } from 'react-redux';
 import * as DeckActions from '../../actions/DeckActions';
 import CustomButton from '../CustomButton';
+import If from '../If';
 
 class DeckScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -50,16 +51,18 @@ class DeckScreen extends Component {
                             { addCardToDeck: this._addCardToDeck }
                         );
                     }} />
-                <CustomButton
-                    buttonStyles={StyleSheet.flatten([styles.button, styles.startQuizButton])}
-                    textStyles={styles.buttonTitle}
-                    text='Start Quiz'
-                    _onPress={() => {
-                        this.props.navigation.navigate(
-                            'QuizScreen',
-                            { deckTitle: deck.title }
-                        );
-                    }} />
+                <If test={numCards > 0}>
+                    <CustomButton
+                        buttonStyles={StyleSheet.flatten([styles.button, styles.startQuizButton])}
+                        textStyles={styles.buttonTitle}
+                        text='Start Quiz'
+                        _onPress={() => {
+                            this.props.navigation.navigate(
+                                'QuizScreen',
+                                { deck: deck }
+                            );
+                        }} />
+                </If>
             </View>
         )
     };
