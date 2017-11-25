@@ -29,7 +29,7 @@ class DeckListScreen extends Component {
 
     _deckItemExtractor = () => {
         const decks = this.props.decks;
-        if (decks === undefined) {
+        if (decks === undefined || decks === null) {
             return [];
         }
         return Object.keys(decks).map(key => {
@@ -74,8 +74,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveDeck: (title) => dispatch(DeckActions.saveDeck(title)),
-        addCardToDeck: (title, card) => dispatch(DeckActions.addCardToDeck(title, card)),
         getAllDecks: () => dispatch(DeckActions.getAllDecks())
     }
 };

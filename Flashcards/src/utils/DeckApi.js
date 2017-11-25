@@ -8,9 +8,9 @@ export function fetchAllDecks() {
 };
 
 export function saveDeck(decks) {
-    AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(decks));
+    AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks));
 };
 
 export function clearAllDecks() {
-    AsyncStorage.clear();
+    return AsyncStorage.clear();
 };

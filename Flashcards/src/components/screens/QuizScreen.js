@@ -5,6 +5,9 @@ import CustomButton from '../CustomButton';
 import If from '../If';
 import { NavigationActions } from 'react-navigation';
 import * as DeckActions from '../../actions/DeckActions';
+import { AsyncStorage } from 'react-native';
+
+const QUIZ_COMPLETED_DATE = 'QUIZ_COMPLETED_DATE';
 
 const ScoreLayout = ({ score, showScore, reset, goBack, styles }) => (
     <View style={styles.scoreContainer}>
@@ -20,7 +23,7 @@ const ScoreLayout = ({ score, showScore, reset, goBack, styles }) => (
             <CustomButton
                 buttonStyles={StyleSheet.flatten([styles.button, styles.goBackButton])}
                 textStyles={styles.buttonTitle}
-                text='Beck to Deck'
+                text='Back to Deck'
                 _onPress={() => {
                     goBack();
                 }} />
@@ -75,11 +78,15 @@ export default class QuizScreen extends Component {
     };
 
     _getQuestionStr = () => {
-        return this._getQuestion(this.state.cardIndex).question;
+        return  this._getQuestion(this.state.cardIndex) !== undefined
+        ? this._getQuestion(this.state.cardIndex).question
+        : 'Opss! No Question found';
     };
 
     _getAnswerStr = () => {
-        return this._getQuestion(this.state.cardIndex).answer;
+        return  this._getQuestion(this.state.cardIndex) !== undefined
+        ? this._getQuestion(this.state.cardIndex).answer
+        : 'Opss! No Answer found';
     };
 
     _submitAnswer = (isCorrect) => {

@@ -1,8 +1,8 @@
 import { Dimensions } from 'react-native';
 import { NavigationComponent } from 'react-native-material-bottom-navigation';
 import { TabNavigator } from 'react-navigation';
-import DeckListScreen from './screens/DeckListScreen';
-import NewDeckScreen from './screens/NewDeckScreen';
+import DeckListScreen, { DeckListScreenConnected } from './screens/DeckListScreen';
+import NewDeckScreen, { NewDeckScreenConnected } from './screens/NewDeckScreen';
 import { green_00796B, gray_37474F } from '../utils/colors';
 
 const deviceScreenWidth = Dimensions.get('window').width;
