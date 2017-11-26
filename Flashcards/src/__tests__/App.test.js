@@ -1,6 +1,6 @@
 import React from 'react';
 import App from '../../App';
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import thunk from 'redux-thunk';
@@ -23,11 +23,7 @@ const initialState = {
   decks: decksMock
 };
 
-import renderer from 'react-test-renderer';
 it('renders without crashing', () => {
-  // const wrapper = renderer.create(<App />,
-  //   { context: { store: mockStore(initialState) } }).toJSON();
-  // const wrapper = shallow(<App />);
   const wrapper = shallow(
     <App />,
     { context: { store: mockStore(initialState) } },

@@ -1,6 +1,6 @@
 import React from 'react';
 import AddCardScreen from '../components/screens/AddCardScreen';
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
@@ -9,7 +9,6 @@ const sinon = require('sinon');
 
 configure({ adapter: new Adapter() });
 
-const _onPressSpy = sinon.spy();
 const addCardToDeckSpy = sinon.spy();
 const goBackSpy = sinon.spy();
 

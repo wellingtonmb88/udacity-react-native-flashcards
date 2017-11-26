@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import Swipeout from 'react-native-swipeout';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomButton from '../components/CustomButton';
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 const sinon = require('sinon');

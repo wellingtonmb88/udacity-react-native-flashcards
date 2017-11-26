@@ -1,11 +1,10 @@
 import React from 'react';
 import DeckScreen from '../components/screens/DeckScreen';
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import renderer from 'react-test-renderer';
 
 const sinon = require('sinon');
 const middlewares = [thunk];
@@ -26,7 +25,6 @@ const initialState = {
 };
 
 const addCardToDeckSpy = sinon.spy();
-const _onPressSpy = sinon.spy();
 const navigateSpy = sinon.spy();
 const goBackSpy = sinon.spy();
 

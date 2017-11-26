@@ -1,6 +1,6 @@
 import React from 'react';
 import QuizScreen from '../components/screens/QuizScreen';
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
@@ -15,7 +15,6 @@ const deckMock = {
   questions: [cardMock, cardMock]
 };
 
-const _onPressSpy = sinon.spy();
 const goBackSpy = sinon.spy();
 
 const props = {

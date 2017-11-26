@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { blue_4e4cb8 } from '../../utils/colors';
 import CustomButton from '../CustomButton';
 import If from '../If';
-import { NavigationActions } from 'react-navigation';
-import * as DeckActions from '../../actions/DeckActions';
 import { AsyncStorage } from 'react-native';
 import * as NotificationUtils from '../../utils/NotificationUtils';
 

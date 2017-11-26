@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Animated } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { purple_292477, blue_4e4cb8 } from '../../utils/colors';
+import { StyleSheet, Text, View, Animated } from 'react-native';
+import { blue_4e4cb8 } from '../../utils/colors';
 import { connect } from 'react-redux';
 import * as DeckActions from '../../actions/DeckActions';
 import CustomButton from '../CustomButton';
