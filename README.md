@@ -9,7 +9,7 @@ For the Flashcards Mobile project, I built a mobile app (Android) that allows us
 
 To get started:
  - First install all project dependencies: cd Flashcards npm install
- - Run the WebSite: yarn start or npm start
+ - Run the app: yarn start or npm start
  - Run the tests: npm run test 
  - Run the tests with code coverage: npm run test -- --coverage
 
