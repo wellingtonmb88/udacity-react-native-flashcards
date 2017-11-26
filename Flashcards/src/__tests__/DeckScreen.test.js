@@ -43,6 +43,21 @@ const props = {
     }
 }
 
+jest.mock('Animated', () => {
+    const ActualAnimated = require.requireActual('Animated');
+    const sinon = require('sinon');
+    return {
+        ...ActualAnimated,
+        timing: (value, config) => {
+            return {
+                start: sinon.spy(),
+                finished: sinon.spy()
+            };
+        },
+        finished: sinon.spy()
+    };
+});
+
 it('renders without crashing', () => {
     const wrapper = shallow(
         <DeckScreen />,

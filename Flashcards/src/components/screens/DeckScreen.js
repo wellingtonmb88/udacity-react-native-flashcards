@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { purple_292477, blue_4e4cb8 } from '../../utils/colors';
 import { connect } from 'react-redux';
@@ -16,7 +16,15 @@ class DeckScreen extends Component {
         }
     });
 
+    state = {
+        bounceValue: new Animated.Value(1),
+    };
+
     _getDeck = () => {
+        Animated.sequence([
+            Animated.timing(this.state.bounceValue, { duration: 500, toValue: 1.04 }),
+            Animated.spring(this.state.bounceValue, { toValue: 1, friction: 5 })
+        ]).start();
         const { deckTitle } = this.props.navigation.state.params;
         return this.props.decks[deckTitle];
     };
@@ -35,34 +43,36 @@ class DeckScreen extends Component {
         const deck = this._getDeck();
         return (
             <View style={styles.container}>
-                <Text style={styles.deckName}>{deck.title}</Text>
-                <Text style={styles.deckCards}>
-                    {numCards > 1 ?
-                        `${numCards} cards` :
-                        `${numCards} card`}
-                </Text>
-                <CustomButton
-                    buttonStyles={StyleSheet.flatten([styles.button, styles.addCardButton])}
-                    textStyles={styles.buttonTitle}
-                    text='Add Card'
-                    _onPress={() => {
-                        this.props.navigation.navigate(
-                            'AddCardScreen',
-                            { addCardToDeck: this._addCardToDeck }
-                        );
-                    }} />
-                <If test={numCards > 0}>
+                <Animated.View style={{ transform: [{ scale: this.state.bounceValue }] }}>
+                    <Text style={styles.deckName}>{deck.title}</Text>
+                    <Text style={styles.deckCards}>
+                        {numCards > 1 ?
+                            `${numCards} cards` :
+                            `${numCards} card`}
+                    </Text>
                     <CustomButton
-                        buttonStyles={StyleSheet.flatten([styles.button, styles.startQuizButton])}
+                        buttonStyles={StyleSheet.flatten([styles.button, styles.addCardButton])}
                         textStyles={styles.buttonTitle}
-                        text='Start Quiz'
+                        text='Add Card'
                         _onPress={() => {
                             this.props.navigation.navigate(
-                                'QuizScreen',
-                                { deck: deck }
+                                'AddCardScreen',
+                                { addCardToDeck: this._addCardToDeck }
                             );
                         }} />
-                </If>
+                    <If test={numCards > 0}>
+                        <CustomButton
+                            buttonStyles={StyleSheet.flatten([styles.button, styles.startQuizButton])}
+                            textStyles={styles.buttonTitle}
+                            text='Start Quiz'
+                            _onPress={() => {
+                                this.props.navigation.navigate(
+                                    'QuizScreen',
+                                    { deck: deck }
+                                );
+                            }} />
+                    </If>
+                </Animated.View>
             </View>
         )
     };
@@ -71,7 +81,6 @@ class DeckScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white',
     },
