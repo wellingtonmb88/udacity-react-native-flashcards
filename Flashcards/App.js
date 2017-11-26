@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import * as DeckApi from './src/utils/DeckApi';
+import * as NotificationUtils from './src/utils/NotificationUtils';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -62,6 +63,11 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    NotificationUtils.setLocalNotification();
+  };
+
   render() {
     return (
       <Provider store={configureStore()}>

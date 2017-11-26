@@ -6,8 +6,7 @@ import If from '../If';
 import { NavigationActions } from 'react-navigation';
 import * as DeckActions from '../../actions/DeckActions';
 import { AsyncStorage } from 'react-native';
-
-const QUIZ_COMPLETED_DATE = 'QUIZ_COMPLETED_DATE';
+import * as NotificationUtils from '../../utils/NotificationUtils';
 
 const ScoreLayout = ({ score, showScore, reset, goBack, styles }) => (
     <View style={styles.scoreContainer}>
@@ -102,6 +101,7 @@ export default class QuizScreen extends Component {
         if (cardIndex < numCards - 1) {
             this.setState({ cardIndex: (cardIndex + 1) });
         } else {
+            this._saveQuizCompletedDate();
             this.setState({ showScore: true });
         }
     };
@@ -113,6 +113,12 @@ export default class QuizScreen extends Component {
 
     _reset = () => {
         this.setState({ showScore: false, score: 0, cardIndex: 0, showAnswer: false });
+    };
+
+    _saveQuizCompletedDate = () => {
+        const today = (new Date()).toDateString();
+        AsyncStorage.setItem(NotificationUtils.QUIZ_COMPLETED_DATE, JSON.stringify(today))
+        .then(NotificationUtils.setLocalNotification());
     };
 
     render() {
