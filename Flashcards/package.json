@@ -28,6 +28,7 @@
       "!<rootDir>/setupTests.js",
       "!src/utils/colors.js",
       "!src/utils/DeckApi.js",
+      "!src/utils/NotificationUtils.js",
       "!<rootDir>/node_modules/",
       "!<rootDir>/path/to/dir/"
     ],
