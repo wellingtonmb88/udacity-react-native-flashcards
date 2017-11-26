@@ -73,5 +73,5 @@ it('renders without crashing testing FlatList decks: undefined ', () => {
             }
         },
     );
-    expect(wrapper.dive().find('FlatList').length).toBe(1);
+    expect(wrapper.dive().find('FlatList').length).toBe(0);
 });

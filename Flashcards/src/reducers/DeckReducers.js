@@ -3,7 +3,8 @@ import {
     GET_DECK,
     SAVE_DECK,
     ADD_CARD_TO_DECK,
-    REMOVE_ALL_DECKS
+    REMOVE_ALL_DECKS,
+    REMOVE_DECK
 } from '../actions/DeckActions';
 
 export function reducer(state = {}, action) {
@@ -15,6 +16,17 @@ export function reducer(state = {}, action) {
             return {
                 ...state,
                 decks: {}
+            };
+
+        case REMOVE_DECK:
+            return {
+                ...state,
+                decks: Object.keys(state.decks).reduce((result, key) => {
+                    if (key !== title) {
+                        result[key] = state.decks[key];
+                    }
+                    return result;
+                }, {})
             };
 
         case LOAD_ALL_DECKS:

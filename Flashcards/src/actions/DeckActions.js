@@ -3,6 +3,7 @@ export const GET_DECK = 'GET_DECK';
 export const SAVE_DECK = 'SAVE_DECK';
 export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
 export const REMOVE_ALL_DECKS = 'REMOVE_ALL_DECKS';
+export const REMOVE_DECK = 'REMOVE_DECK';
 import * as DeckApi from '../utils/DeckApi';
 
 function loadAllDecks(decks) {
@@ -33,6 +34,13 @@ function removeAllDecks() {
     }
 }
 
+function removeDeck(title) {
+    return {
+        type: REMOVE_DECK,
+        title
+    }
+}
+
 export const getAllDecks = () => dispatch => (
     DeckApi.fetchAllDecks()
         .then(decks => dispatch(loadAllDecks(JSON.parse(decks))))
@@ -44,6 +52,10 @@ export const addCardToDeck = (title, card) => dispatch => {
 
 export const saveDeck = (title) => dispatch => {
     dispatch(saveDeckTitle(title));
+};
+
+export const deleteDeck = (title) => dispatch => {
+    dispatch(removeDeck(title));
 };
 
 export const deleteAllDecks = () => dispatch => (

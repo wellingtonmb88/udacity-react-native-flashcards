@@ -53,7 +53,7 @@ describe('DeckReducers reducer', () => {
 
     it('should handle ADD_CARD_TO_DECK', () => {
         expect(
-            reducer({ decks: {'deck 3':{ title: 'deck 3', questions: [] }} }, {
+            reducer({ decks: { 'deck 3': { title: 'deck 3', questions: [] } } }, {
                 type: DeckActions.ADD_CARD_TO_DECK,
                 title: 'deck 3',
                 card: cardMock
@@ -63,13 +63,29 @@ describe('DeckReducers reducer', () => {
             );
     });
 
-    it('should handle ADD_CARD_TO_DECK', () => {
+    it('should handle REMOVE_ALL_DECKS', () => {
         expect(
-            reducer({ decks: {'deck 3':{ title: 'deck 3', questions: [] }} }, {
+            reducer({ decks: { 'deck 3': { title: 'deck 3', questions: [] } } }, {
                 type: DeckActions.REMOVE_ALL_DECKS
             })
         ).toEqual(
             { decks: {} }
+            );
+    });
+
+    it('should handle REMOVE_DECK', () => {
+        expect(
+            reducer({
+                decks: {
+                    'deck 1': { title: 'deck 1', questions: [] },
+                    'deck 3': { title: 'deck 3', questions: [] }
+                },
+            }, {
+                    type: DeckActions.REMOVE_DECK,
+                    title: 'deck 3',
+                })
+        ).toEqual(
+            { decks: { 'deck 1': { title: 'deck 1', questions: [] } } }
             );
     });
 });

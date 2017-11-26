@@ -13,6 +13,7 @@ const deckMock = {
     numCards: 1
 };
 
+const _deleteDeckSpy = sinon.spy();
 const _onPressSpy = sinon.spy();
 
 it('renders with 1 card', () => {
@@ -20,7 +21,8 @@ it('renders with 1 card', () => {
         <DeckItem deck={{
             name: 'deck 1',
             numCards: 1
-        }} _onPress={_onPressSpy} />,
+        }} _onPress={_onPressSpy}
+            _deleteDeck={_deleteDeckSpy} />,
     );
     expect(wrapper).toBeTruthy();
 });
@@ -30,7 +32,8 @@ it('renders with 2 cards', () => {
         <DeckItem deck={{
             name: 'deck 1',
             numCards: 2
-        }} _onPress={_onPressSpy} />,
+        }} _onPress={_onPressSpy}
+            _deleteDeck={_deleteDeckSpy} />,
     );
     expect(wrapper).toBeTruthy();
 });
@@ -40,9 +43,11 @@ it('renders without crashing testing press ', () => {
         <DeckItem deck={{
             name: 'deck 1',
             numCards: 2
-        }} _onPress={_onPressSpy} />,
+        }} _onPress={_onPressSpy}
+            _deleteDeck={_deleteDeckSpy} />,
     );
     expect(wrapper).toBeTruthy();
-    wrapper.simulate('press');
+
+    wrapper.find("TouchableOpacity").simulate('press');
     expect(_onPressSpy.callCount).toBe(1);
 });

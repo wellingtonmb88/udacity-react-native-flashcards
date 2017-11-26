@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import DeckItem from '../DeckItem';
 import { connect } from 'react-redux';
 import * as DeckActions from '../../actions/DeckActions';
+import If from '../If';
 
 class DeckListScreen extends Component {
     static navigationOptions = {
         tabBarLabel: "Decks",
         tabBarIcon: () => <Entypo size={24} name="blackboard" color="white" />
     };
+
+    state = {
+        stopLoading: false
+    }
 
     componentDidMount() {
         this.props.getAllDecks();
@@ -24,11 +29,16 @@ class DeckListScreen extends Component {
                 'DeckScreen',
                 { deckTitle: item.name }
             )}
+            _deleteDeck={() => this.props.deleteDeck(item.name)}
         />
     );
 
     _deckItemExtractor = () => {
         const decks = this.props.decks;
+        setTimeout(() => {
+            this.setState({ stopLoading: true });
+        }, 1000);
+
         if (decks === undefined || decks === null) {
             return [];
         }
@@ -42,27 +52,48 @@ class DeckListScreen extends Component {
                 name: decks[key].title,
                 numCards: decks[key].questions.length
             }
-        }).filter( item => item !== undefined)
+        }).filter(item => item !== undefined)
     };
 
     render() {
         const decksList = this._deckItemExtractor()
+        const { stopLoading } = this.state;
         return (
             <View style={styles.container}>
-                <FlatList
-                    renderItem={this._renderItem}
-                    keyExtractor={this._keyExtractor}
-                    data={decksList}
-                />
+                <If test={!stopLoading}>
+                    <ActivityIndicator
+                        style={styles.activityIndicator}
+                        animating={!stopLoading} size='large' />
+                </If>
+                <If test={stopLoading}>{decksList.length < 1 ?
+                    <Text style={styles.deckEmpty}>Your deck is empty!</Text> :
+                    <FlatList
+                        renderItem={this._renderItem}
+                        keyExtractor={this._keyExtractor}
+                        data={decksList}
+                    />}
+                </If>
             </View>
         )
     };
 };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+    },
+    activityIndicator: {
+        flex: 1,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    deckEmpty: {
+        fontSize: 50,
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
 });
 
@@ -74,7 +105,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getAllDecks: () => dispatch(DeckActions.getAllDecks())
+        getAllDecks: () => dispatch(DeckActions.getAllDecks()),
+        deleteDeck: (title) => dispatch(DeckActions.deleteDeck(title))
     }
 };
 

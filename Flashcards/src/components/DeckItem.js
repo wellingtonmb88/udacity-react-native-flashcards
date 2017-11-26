@@ -2,31 +2,47 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
+import Swipeout from 'react-native-swipeout';
 
 export default class DeckItem extends Component {
 
     static propTypes = {
         deck: PropTypes.object.isRequired,
         _onPress: PropTypes.func.isRequired,
+        _deleteDeck: PropTypes.func.isRequired,
     };
 
     _onPress = () => {
         this.props._onPress();
     };
 
+    _deleteDeck = () => {
+        this.props._deleteDeck();
+    };
+
     render() {
         const { deck } = this.props;
+        const swipeBtns = [{
+            text: 'Delete',
+            backgroundColor: 'red',
+            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+            onPress: () => { this._deleteDeck() }
+        }];
         return (
-            <TouchableOpacity style={styles.container} onPress={this._onPress}>
-                <View>
-                    <Text style={styles.deckName}>{deck.name}</Text>
-                    <Text style={styles.deckCards}>
-                        {deck.numCards > 1 ?
-                            `${deck.numCards} cards` :
-                            `${deck.numCards} card`}
-                    </Text>
-                </View>
-            </TouchableOpacity>
+            <Swipeout left={swipeBtns}
+                autoClose={true}
+                backgroundColor='transparent' >
+                <TouchableOpacity style={styles.container} onPress={this._onPress}>
+                    <View>
+                        <Text style={styles.deckName}>{deck.name}</Text>
+                        <Text style={styles.deckCards}>
+                            {deck.numCards > 1 ?
+                                `${deck.numCards} cards` :
+                                `${deck.numCards} card`}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </Swipeout>
         )
     };
 };

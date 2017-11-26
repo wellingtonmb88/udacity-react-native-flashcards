@@ -117,5 +117,20 @@ describe('DeckActions suite test', () => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     });
+
+    it('testing REMOVE_DECK action', () => {
+
+        const expectedActions = [
+            {
+                type: DeckActions.REMOVE_DECK,
+                title: "title"
+            }
+        ];
+
+        const store = mockStore({ decks: {} });
+
+        store.dispatch(DeckActions.deleteDeck("title"))
+        expect(store.getActions()).toEqual(expectedActions);
+    });
 })
 
